@@ -17,8 +17,12 @@
 #   about_triangle_project_2.py
 #
 def triangle(a, b, c):
-    # DELETE 'PASS' AND WRITE THIS CODE
-    # pass
+    # Check input
+    if a <= 0 or b <= 0 or c <= 0:
+        raise TriangleError(AttributeError("Negative values"))
+    if a + b + c <= 2 * max(a, b, c):
+        raise TriangleError(AttributeError("Imposible triangle"))
+
     if a == b == c:
         return 'equilateral'
     elif a == b or a == c or b == c:
