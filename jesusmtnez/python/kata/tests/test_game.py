@@ -10,5 +10,12 @@ class BowlingGameTest(unittest.TestCase):
 
         self.assertEquals(0, g.score())
 
+    def test_all_ones(self):
+        g = Game()
+        for i in range(20):
+            g.roll(1)
+
+        self.assertEquals(20, g.score())
+
 if __name__ == '__main__':
     unittest.main()
