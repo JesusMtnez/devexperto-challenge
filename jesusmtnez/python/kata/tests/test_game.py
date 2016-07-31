@@ -19,6 +19,10 @@ class BowlingGameTest(unittest.TestCase):
         self.g.roll(5)
         self.g.roll(5)
 
+    def _roll_strike(self):
+        "Roll a strike"
+        self.g.roll(10)
+
     def test_gutter_game(self):
         self._roll_many(20, 0)
         self.assertEqual(0, self.g.score())
@@ -32,6 +36,13 @@ class BowlingGameTest(unittest.TestCase):
         self.g.roll(3)
         self._roll_many(17, 0)
         self.assertEqual(16, self.g.score())
+
+    def test_one_strike(self):
+        self._roll_strike()
+        self.g.roll(3)
+        self.g.roll(4)
+        self._roll_many(16, 0)
+        self.assertEqual(24, self.g.score())
 
 if __name__ == '__main__':
     unittest.main()
