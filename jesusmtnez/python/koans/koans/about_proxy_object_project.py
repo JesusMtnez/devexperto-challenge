@@ -20,12 +20,33 @@ from runner.koan import *
 
 class Proxy:
     def __init__(self, target_object):
-        # WRITE CODE HERE
-
+        self._messages = list()
         #initialize '_obj' attribute last. Trust me on this!
         self._obj = target_object
 
-    # WRITE CODE HERE
+    def __setattr__(self, attr_name, value):
+        self_attr = ["_messages", "_obj", "was_called"]
+        if attr_name in self_attr:
+            object.__setattr__(self, attr_name, value)
+        else:
+            self._messages.append(attr_name)
+            self._obj.__setattr__(attr_name, value)
+
+    def __getattr__(self, attr_name):
+        self._messages.append(attr_name)
+        return self._obj.__getattribute__(attr_name)
+
+    def messages(self):
+        "Return the list of attributes accessed"
+        return self._messages
+
+    def was_called(self, attr_name):
+        "Check if an attribute has been accessed"
+        return attr_name in self._messages
+
+    def number_of_times_called(self, attr_name):
+        "The number of times an attribute has been accessed"
+        return self._messages.count(attr_name)
 
 # The proxy object should pass the following Koan:
 #
